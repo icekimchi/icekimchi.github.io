@@ -19,6 +19,6 @@ package-lock.json
 .vscode
 
 # Misc
-#*.map
-#sw.min.js
-#assets/js/dist
+*.map
+sw.min.js
+assets/js/dist
