@@ -2,12 +2,14 @@
 * Mainly scss modules, only imported to `assets/css/main.scss`
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&family=Noto+Serif+KR:wght@400;500;600&display=swap');
+
 /* ---------- scss placeholder --------- */
 
 %heading {
-  color: var(--heading-color);
-  font-weight: 400;
-  font-family: $font-family-heading;
+  color: #0056b2;
+  font-weight: 800;
+  font-family: 'Noto Sans KR', serif;
 }
 
 %section {

@@ -2,6 +2,8 @@
   Style for Homepage
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&family=Noto+Serif+KR:wght@400;500;600&display=swap');
+
 #post-list {
   margin-top: 2rem;
 
@@ -38,7 +40,7 @@
       .card-title {
         @extend %text-clip;
 
-        color: var(--heading-color) !important;
+        color: #0056b2 !important;
         font-size: 1.25rem;
       }
 
@@ -85,7 +87,7 @@
 
 .pagination {
   color: var(--text-color);
-  font-family: Lato, sans-serif;
+  font-family: 'Noto Sans KR', serif;
   justify-content: space-evenly;
 
   a:hover {

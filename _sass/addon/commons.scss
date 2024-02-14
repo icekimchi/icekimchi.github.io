@@ -1,5 +1,7 @@
 /* The common styles */
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&family=Noto+Serif+KR:wght@400;500;600&display=swap');
+
 html {
   @media (prefers-color-scheme: light) {
     &:not([data-mode]),
@@ -32,9 +34,8 @@ body {
     env(safe-area-inset-bottom) env(safe-area-inset-left);
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
-  font-family: $font-family-base;
+  font-family: 'Noto Sans KR', serif;
 }
-
 /* --- Typography --- */
 
 @for $i from 1 through 5 {
@@ -1189,7 +1190,7 @@ search {
   }
 
   .toast-body {
-    font-family: Lato, sans-serif;
+    font-family: 'Noto Sans KR', serif;
     line-height: 1.25rem;
 
     button {
