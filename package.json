@@ -108,5 +108,8 @@
         "section": "Improvements"
       }
     ]
+  },
+  "dependencies": {
+    "gh-pages": "^6.1.1"
   }
 }
