@@ -1,5 +1,5 @@
 ---
-title: "[JAVA] Scanner 입력 알아보기"
+title: "[Algorithm] 소수의 판별 "
 date: 2024-7-27 23:00:00 +0900
 categories: [Algorithm, Python]
 tags: [Python, 알고리즘, 소수 판별]
