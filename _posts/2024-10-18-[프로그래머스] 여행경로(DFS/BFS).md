@@ -82,9 +82,38 @@ def solution(tickets):
     return DFS("ICN", dict, answer, len(tickets))
 ```
 
+### 💡 stack 을 사용한 DFS
+
+```python
+from collections import defaultdict
+
+def solution(tickets):
+    graph = defaultdict(list)
+
+    for start, dest in tickets:
+        graph[start].append(dest)
+
+    for start in graph:
+        graph[start].sort()
+
+    stack = ["ICN"]
+    path = []
+
+    while stack:
+        route = stack[-1]
+
+        if not graph[route]:
+            path.append(stack.pop())
+        else:
+            next_route = graph[route].pop(0)
+            stack.append(next_route)
+
+    return path[::-1]
+
+```
+
 - 딕셔너리.get() 함수를 사용해서 key가 존재하지 않으면 None을 반환하는 함수를 사용하였다. 키가 없어도 오류가 발생하지 않는다.
 
 ### 💡 마무리
 
 - 사실, 완벽히 이 코드를 이해하지 못했다,, 대략 이해하는 정도지만 내가 혼자서 구현하는 데 자신이 없어서 앞으로 더 공부해봐야겠다.
-- BFS로도 구현해봐야겠다!
