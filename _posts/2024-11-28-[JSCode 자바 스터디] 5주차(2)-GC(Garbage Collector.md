@@ -18,34 +18,44 @@ tags: [JAVA, 자바, hashmap, map]
 - 메모리 관리를 해주어 메모리 누수 문제를 관리하지 않아도 된다.
   단점
 - GC를 수행하기 위해 다른 JVM 프로그램 실행이 멈춰 오버헤드가 발생할 수 있다.(Stop-The World 라고 한다.)
+- GC가 다른 JVM 프로그램 실행이 멈추는 이유는 메모리 안정성 보장 때문이다.
 
-### 👉 Execute Engine
+### 👉 GC 모니터링
 
-- . class파일과 같은 ByteCode를 실행 가능하도록 해석한다.
+- GC의 성능 문제나 메모리 부족 문제를 사전에 파악하기 위해 모니터링이 필요하다.
+- Young 영역에 있는 객체를 Old 영역에 언제 얼마나 이동했는지, stop-the-world가 언제 얼마나 일어났는지에 대한 정보를 알 수 있음
 
-### 👉 JVM 메모리 영역
+### 👉 GC 모니터링
 
-#### Method Area(메서드 영역)
+#### jstat
 
-- 클래스 정보를 처음 메모리 공간에 올릴 때 초기화되는 대상을 저장하기 위한 메모리 공간이다. 이 공간에는 Runtime Constant Pool도 존재하며, 상수 자료형을 저장하고 참조하는 역할을 한다.
+- HotSpot JVM에 있는 모니터링 도구이다.
+- jstat은 GC수행정보 뿐 아니라 클래스로더 수행정보나 Just In Time 컴파일러 수행정보도 알 수 있다.
+- jstat은 $JAVA_HOME/bin 디렉토리에 있다.
 
-#### Heap(힙)
+#### -verbosegc 옵션
 
-![alt text](/images/자바스터디/힙구조.png)
+- Java애플리케이션을 가동할때 지정하는 JVM옵션 가운데 하나이다.
+- 시작할 때 -verbosegc옵션을 지정해야 한다.
+- 직관적으로 이해하기 쉬운 출력결과를 GC가 발생할 때마다 보여준다.
 
-- 객체를 저장하는 가상 메모리 공간이다. new 연산자로 생성된 객체과 배열을 저장한다.
-- 모든 스레드가 힙 영역을 공유한다.
-- JVM의 GC(Garbage Collector)가 이 영역을 관리한다.
-- Young/Old Generation:
-  > Eden : 객체들이 최초로 생성되는 공간
-  > Survivor 0/1 : Eden에서 참조되는 객체들이 저장되는 공간
-- Old 영역 : Eden 영역에 객체가 꽉 차면 첫 번째 GC가 발생한다. Eden 영역에 있는 값들을 Survivor 1영역에 복사하고, 이 영역을 제외한 나머지 영역의 객체를 삭제한다.
+### 👉 out of memory 에러가 발생했을때
 
-#### Stack(스택)
+- OOME가 발생한다면 먼저 에러 로그를 통해 정보를 확인한다.
+  **Exception in thread "main":java.lang.OutOfMemoryEeror: Java heap spac**
+- Heap size의 부족으로 heap에 할당하지 못한 경우
+  **Exception in thread "main":java.lang.OutOfMemoryEeror: PermGen space**
+- 애플리케이션에서 너무 많은 class를 로드할 때 발생한다.(설계/구현에 의한 발생)
+  **Exception in thread "main":java.lang.OutOfMemoryEeror: Reqeusted array size**
+- 사용할 배열의 사이즈가 VM에서 정의될 사이즈르 초과할 때
 
-- 프로그램 실행과정에서 임시로 할당되었다가 메소드를 빠져나가면 바로 소멸되는 특성의 데이터를 저장하기 위한 영역이다.
+### 👉메모리 누수를 어떻게 확인할 것인가요?
 
-#### PC Register
+우선, 메모리 누수가 발생하기 전에 `객체 참조/리소스 해제`, `캐시` 등 좋은 코딩 습관을 가지려 노력할 것입니다. 하지만, 발생했다면 jstat으로 JVM의 heap Memory 상태를 확인하거나 힙 덤프 분석하여 발생 원인을 찾으려 할 것입니다.
 
-- Thread가 시작될 때 생성되며 스레드마다 하나씩 존재한다.
-- 현재 수행 중인 JVM 명령의 주소를 갖는다.
+### 참고
+
+- https://inpa.tistory.com/entry/JAVA-%E2%98%95-%EA%B0%80%EB%B9%84%EC%A7%80-%EC%BB%AC%EB%A0%89%EC%85%98GC-%EB%8F%99%EC%9E%91-%EC%9B%90%EB%A6%AC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%F0%9F%92%AF-%EC%B4%9D%EC%A0%95%EB%A6%AC
+- https://uchupura.tistory.com/222
+- https://codingdreamtree.tistory.com/16
+- https://www.nextree.co.kr/p3878/ -https://junuuu.tistory.com/771
